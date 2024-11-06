@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "616402181885",
+    "project_id": "book-room-8a3ff",
+    "storage_bucket": "book-room-8a3ff.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:616402181885:android:756b70070d2971abb7e894",
+        "android_client_info": {
+          "package_name": "com.imrankhan.bookroom"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQV47jgwxc4eGfAP76lwt_bssMc7tgC6Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
