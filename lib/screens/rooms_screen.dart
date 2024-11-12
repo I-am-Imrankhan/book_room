@@ -1,8 +1,9 @@
+import 'package:book_room/wedgits/booking_dialog.dart';
+import 'package:book_room/wedgits/room_cart.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../models/room.dart';
 import '../services/firebase_service.dart';
-import '../wedgits/room_cart.dart';
-import '../wedgits/booking_dialog.dart';
 
 class RoomsScreen extends StatelessWidget {
   final DateTime selectedDate;

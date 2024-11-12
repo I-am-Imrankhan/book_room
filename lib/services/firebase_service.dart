@@ -12,10 +12,10 @@ class FirebaseService {
         final data = doc.data();
         return Room(
           id: doc.id,
-          name: data['name'],
-          capacity: data['capacity'],
-          isAvailable: data['isAvailable'],
-          pricePerHour: data['pricePerHour'].toDouble(),
+          name: data['name'] ?? '',
+          capacity: data['capacity'] ?? 0,
+          isAvailable: data['isAvailable'] ?? true,
+          pricePerHour: (data['pricePerHour'] ?? 0).toDouble(),
         );
       }).toList();
     });

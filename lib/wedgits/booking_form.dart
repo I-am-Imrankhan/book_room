@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../models/room_provider.dart';
 
 class BookingForm extends StatelessWidget {
   const BookingForm({super.key});
@@ -11,7 +13,7 @@ class BookingForm extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           const Text(
-            'Book a Room',
+            'Book a Room form',
             style: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,
