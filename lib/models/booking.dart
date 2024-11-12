@@ -1,6 +1,7 @@
 class Booking {
   final String id;
   final String roomId;
+  final String roomName;
   final DateTime date;
   final int startHour;
   final int duration;
@@ -8,6 +9,7 @@ class Booking {
 
   Booking({
     required this.id,
+    required this.roomName,
     required this.roomId,
     required this.date,
     required this.startHour,
@@ -19,6 +21,7 @@ class Booking {
     return {
       'id': id,
       'roomId': roomId,
+      'roomName': roomName,
       'date': date.toIso8601String(),
       'startHour': startHour,
       'duration': duration,
@@ -30,6 +33,7 @@ class Booking {
     return Booking(
       id: json['id'],
       roomId: json['roomId'],
+      roomName: json['roomName'],
       date: DateTime.parse(json['date']),
       startHour: json['startHour'],
       duration: json['duration'],

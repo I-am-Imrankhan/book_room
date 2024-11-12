@@ -57,6 +57,7 @@ class BookingService {
     // Create the booking
     await _firestore.collection('bookings').add({
       'roomId': booking.roomId,
+      'roomName': booking.roomName,
       'date': Timestamp.fromDate(booking.date),
       'startHour': booking.startHour,
       'duration': booking.duration,

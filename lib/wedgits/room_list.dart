@@ -1,26 +1,67 @@
-import 'package:book_room/wedgits/room_cart.dart';
+import 'package:book_room/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../models/room_provider.dart';
+import 'package:book_room/providers/AuthProvider.dart' as auth_provider;
 
-class RoomList extends StatelessWidget {
-  const RoomList({super.key});
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
+
+  List<DateTime> _getNext7Days() {
+    final now = DateTime.now();
+    return List.generate(7, (index) {
+      return DateTime(now.year, now.month, now.day + index);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<RoomProvider>(
-      builder: (context, roomProvider, child) {
-        final rooms = roomProvider.rooms;
-        return Expanded(
-          child: ListView.builder(
-            padding: const EdgeInsets.all(8),
-            itemCount: rooms.length,
-            itemBuilder: (context, index) {
-              return RoomCard(room: rooms[index]);
+    final days = _getNext7Days();
+    final authProvider = Provider.of<auth_provider.AuthProvider>(context, listen: false);
+
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Book Room'),
+        elevation: 2,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.logout),
+            onPressed: () async {
+              await authProvider.signOut();
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => const LoginScreen()),
+              );
             },
           ),
-        );
-      },
+        ],
+      ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Text(
+            'Select a Date',
+            style: TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 20),
+          Expanded(
+            child: ListView.builder(
+              itemCount: days.length,
+              itemBuilder: (context, index) {
+                final day = days[index];
+                return ListTile(
+                  title: Text('${day.month}/${day.day}/${day.year}'),
+                  onTap: () {
+                    // Handle date selection
+                  },
+                );
+              },
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

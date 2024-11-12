@@ -1,7 +1,6 @@
 import 'package:book_room/providers/AuthProvider.dart' as auth_provider;
 import 'package:book_room/screens/home_screen.dart';
 import 'package:book_room/screens/login_screen.dart';
-import 'package:book_room/services/auth_service.dart' as auth_service;
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -24,6 +23,7 @@ void main() async {
     ),
   );
 }
+
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -50,7 +50,7 @@ class AuthenticationWrapper extends StatelessWidget {
         if (snapshot.connectionState == ConnectionState.active) {
           final user = snapshot.data;
           // Navigate to HomeScreen if logged in, otherwise to LoginScreen
-          return user == null ? const LoginScreen() : HomeScreen();
+          return user == null ? const LoginScreen() : const HomeScreen();
         }
         return const Scaffold(
           body: Center(child: CircularProgressIndicator()),

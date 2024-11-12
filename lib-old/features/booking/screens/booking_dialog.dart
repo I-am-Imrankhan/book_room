@@ -100,11 +100,10 @@ class _BookingDialogState extends State<BookingDialog> {
                     final booking = Booking(
                       id: '',
                       roomId: widget.room.id,
-                      roomName: widget.room.name,
                       date: widget.selectedDate,
                       startHour: _selectedHour!,
                       duration: 2,
-                      userId: user!.uid, // Replace with actual user ID
+                      userId: 'user_id', // Replace with actual user ID
                     );
                     await _bookingService.createBooking(booking);
                     if (mounted) {
