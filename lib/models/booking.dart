@@ -1,5 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class Booking {
-  final String id;
   final String roomId;
   final String roomName;
   final DateTime date;
@@ -8,7 +9,6 @@ class Booking {
   final String userId;
 
   Booking({
-    required this.id,
     required this.roomName,
     required this.roomId,
     required this.date,
@@ -19,7 +19,6 @@ class Booking {
 
   Map<String, dynamic> toJson() {
     return {
-      'id': id,
       'roomId': roomId,
       'roomName': roomName,
       'date': date.toIso8601String(),
@@ -31,7 +30,6 @@ class Booking {
 
   factory Booking.fromJson(Map<String, dynamic> json) {
     return Booking(
-      id: json['id'],
       roomId: json['roomId'],
       roomName: json['roomName'],
       date: DateTime.parse(json['date']),
@@ -39,5 +37,27 @@ class Booking {
       duration: json['duration'],
       userId: json['userId'],
     );
+  }
+
+  factory Booking.fromMap(Map<String, dynamic> data) {
+    return Booking(
+      roomId: data['roomId'],
+      roomName: data['roomName'],
+      date: (data['date'] as Timestamp).toDate(),
+      startHour: data['startHour'],
+      duration: data['duration'],
+      userId: data['userId'],
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'roomId': roomId,
+      'roomName': roomName,
+      'date': date,
+      'startHour': startHour,
+      'duration': duration,
+      'userId': userId,
+    };
   }
 }

@@ -98,7 +98,6 @@ class _BookingDialogState extends State<BookingDialog> {
               : () async {
                   try {
                     final booking = Booking(
-                      id: '',
                       roomId: widget.room.id,
                       roomName: widget.room.name,
                       date: widget.selectedDate,

@@ -1,4 +1,6 @@
+import 'package:book_room/models/booking.dart';
 import 'package:book_room/screens/login_screen.dart';
+import 'package:book_room/services/booking_service.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -17,8 +19,9 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
+    final bookingService = BookingService();
     final authProvider = Provider.of<auth_provider.AuthProvider>(context);
+    final user = authProvider.user;
     final days = _getNext7Days();
 
     return Scaffold(
@@ -41,6 +44,76 @@ class HomeScreen extends StatelessWidget {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          const SizedBox(height: 20),
+          const Center(
+            child: Text(
+              'My Bookings',
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          const SizedBox(height: 20),
+          user == null
+              ? const Center(child: Text('Please log in to see your bookings.'))
+              : Flexible(
+                  child: StreamBuilder<List<Booking>>(
+                    stream: bookingService.getUserBookings(user.uid),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return const Center(child: CircularProgressIndicator());
+                      }
+                      if (snapshot.hasError) {
+                        return const Center(
+                            child: Text('Error loading bookings.'));
+                      }
+                      final bookings = snapshot.data ?? [];
+                      if (bookings.isEmpty) {
+                        return const Center(child: Text('No bookings found.'));
+                      }
+                      return ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: bookings.length,
+                        itemBuilder: (context, index) {
+                          final booking = bookings[index];
+                          return Container(
+                            margin: const EdgeInsets.all(8.0),
+                            padding: const EdgeInsets.all(16.0),
+                            decoration: BoxDecoration(
+                              color: Colors.green,
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Room: ${booking.roomId}',
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                const SizedBox(height: 4),
+                                Text(
+                                  'Date: ${booking.date.month}/${booking.date.day}/${booking.date.year}',
+                                  style: const TextStyle(color: Colors.white),
+                                ),
+                                const SizedBox(height: 4),
+                                Text(
+                                  'Time: ${booking.startHour}:00',
+                                  style: const TextStyle(color: Colors.white),
+                                ),
+                              ],
+                            ),
+                          );
+                        },
+                      );
+                    },
+                  ),
+                ),
+          const SizedBox(height: 20),
           const Text(
             'Select a Date',
             style: TextStyle(
