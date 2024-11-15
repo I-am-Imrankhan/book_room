@@ -78,32 +78,76 @@ class HomeScreen extends StatelessWidget {
                         itemBuilder: (context, index) {
                           final booking = bookings[index];
                           return Container(
-                            margin: const EdgeInsets.all(8.0),
-                            padding: const EdgeInsets.all(16.0),
+                            margin: const EdgeInsets.all(8),
+                            padding: const EdgeInsets.all(16),
                             decoration: BoxDecoration(
-                              color: Colors.green,
+                              color: Colors.blue,
                               borderRadius: BorderRadius.circular(8.0),
                             ),
                             child: Column(
-                              mainAxisSize: MainAxisSize.min,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
-                                  'Room: ${booking.roomId}',
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
+                                Expanded(
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Expanded(
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              'Room: ${booking.roomName}',
+                                              style: const TextStyle(
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                            const SizedBox(height: 4),
+                                            Text(
+                                              'Date: ${DateFormat('MMM d').format(booking.date)}',
+                                              style: const TextStyle(
+                                                  color: Colors.white),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      const SizedBox(height: 4),
+                                      Text(
+                                        'Time: ${booking.startHour}:00 - ${booking.startHour + booking.duration}:00',
+                                        style: const TextStyle(
+                                            color: Colors.white),
+                                      ),
+                                    ],
                                   ),
                                 ),
                                 const SizedBox(height: 4),
-                                Text(
-                                  'Date: ${booking.date.month}/${booking.date.day}/${booking.date.year}',
-                                  style: const TextStyle(color: Colors.white),
-                                ),
-                                const SizedBox(height: 4),
-                                Text(
-                                  'Time: ${booking.startHour}:00',
-                                  style: const TextStyle(color: Colors.white),
+                                Container(
+                                  alignment: Alignment.center,
+                                  width: 200,
+                                  child: Row(
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      IconButton(
+                                        icon: const Icon(Icons.delete),
+                                        color: Colors.white,
+                                        onPressed: () async {
+                                          await bookingService
+                                              .deleteBooking(booking.roomId, user.uid, booking.startHour);
+                                        },
+                                      ),
+                                      IconButton(
+                                        icon: const Icon(Icons.cancel),
+                                        color: Colors.white,
+                                        onPressed: () async {
+                                          //await bookingService  .deleteBooking(booking.id);
+                                        },
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ],
                             ),

@@ -72,10 +72,23 @@ class BookingService {
   Stream<List<Booking>> getUserBookings(String userId) {
     return _firestore
         .collection('bookings')
-        //.where('userId', isEqualTo: userId)
+        .where('userId', isEqualTo: userId)
         .snapshots()
         .map((snapshot) => snapshot.docs
             .map((doc) => Booking.fromMap(doc.data() as Map<String, dynamic>))
             .toList());
+  }
+
+  Future<void> deleteBooking(String roomId, String userId, int startHour) async {
+
+    final querySnapshot = await _firestore
+        .collection('bookings')
+        .where('roomId', isEqualTo: roomId)
+        .where('userId', isEqualTo: userId)
+        .where("startHour", isEqualTo: startHour)
+        .get();
+    for (var doc in querySnapshot.docs) {
+      await _firestore.collection('bookings').doc(doc.id).delete();
+    }
   }
 }
