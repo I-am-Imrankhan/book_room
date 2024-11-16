@@ -1,5 +1,8 @@
 import 'package:book_room/screens/home_screen.dart';
 import 'package:book_room/services/auth_service.dart' as auth_service;
+import 'package:book_room/widgets/button_link.dart';
+import 'package:book_room/widgets/custom_button.dart';
+import 'package:book_room/widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:book_room/providers/AuthProvider.dart' as auth_provider;
@@ -20,7 +23,8 @@ class _SignupScreenState extends State<SignupScreen> {
 
   Future<void> _signUp() async {
     if (_formKey.currentState!.validate()) {
-      final authService = Provider.of<auth_provider.AuthProvider>(context, listen: false);
+      final authService =
+          Provider.of<auth_provider.AuthProvider>(context, listen: false);
       final email = _emailController.text.trim();
       final password = _passwordController.text.trim();
 
@@ -63,30 +67,29 @@ class _SignupScreenState extends State<SignupScreen> {
                   errorMessage!,
                   style: const TextStyle(color: Colors.red),
                 ),
-              TextFormField(
+              CustomTextField(
                 controller: _emailController,
-                decoration: const InputDecoration(labelText: 'Email'),
+                labelText: 'Email',
                 validator: (value) =>
                     value!.isEmpty ? 'Please enter your email' : null,
               ),
-              TextFormField(
+              CustomTextField(
                 controller: _passwordController,
-                decoration: const InputDecoration(labelText: 'Password'),
+                labelText: 'Password',
                 obscureText: true,
                 validator: (value) =>
                     value!.isEmpty ? 'Please enter your password' : null,
               ),
               const SizedBox(height: 20),
-              ElevatedButton(
+              CustomButton(
                 onPressed: _signUp,
-                child: const Text('Sign Up'),
+                text: 'Sign Up',
+                color: Colors.blue,
+                textColor: Colors.white,
+                borderColor: Colors.green,
+                size: const Size(200, 50),
               ),
-              TextButton(
-                onPressed: () {
-                  Navigator.pop(context); // Navigate back to the login screen
-                },
-                child: const Text("Already have an account? Log in"),
-              ),
+              ButtonLink(onPressed: () => Navigator.pop(context), text: "Already have an account? Log in")
             ],
           ),
         ),

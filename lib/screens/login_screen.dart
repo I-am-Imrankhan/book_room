@@ -1,7 +1,12 @@
+import 'package:book_room/screens/singup_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:book_room/providers/AuthProvider.dart' as auth_provider;
 import 'home_screen.dart';
+import 'package:book_room/widgets/custom_text_field.dart';
+import 'package:book_room/widgets/custom_button.dart';
+import 'package:book_room/widgets/error_message.dart';
+import 'package:book_room/widgets/button_link.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -51,10 +56,11 @@ class _LoginScreenState extends State<LoginScreen> {
         child: Form(
           key: _formKey,
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              TextFormField(
+              CustomTextField(
                 controller: _emailController,
-                decoration: const InputDecoration(labelText: 'Email'),
+                labelText: 'Email',
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter your email';
@@ -62,9 +68,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   return null;
                 },
               ),
-              TextFormField(
+              CustomTextField(
                 controller: _passwordController,
-                decoration: const InputDecoration(labelText: 'Password'),
+                labelText: 'Password',
                 obscureText: true,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -74,17 +80,31 @@ class _LoginScreenState extends State<LoginScreen> {
                 },
               ),
               const SizedBox(height: 20),
-              ElevatedButton(
+              CustomButton(
                 onPressed: _signIn,
-                child: const Text('Login'),
+                text: 'Login',
+                color: Colors.blue,
+                textColor: Colors.white,
+                borderColor: Colors.green,
+                size: const Size(200, 50),
               ),
+              const SizedBox(height: 20),
+              ButtonLink(
+                text: "Don't have an account? Sign up",
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const SignupScreen()),
+                  );
+                },
+                color: Colors.blue,
+                textDecoration: TextDecoration.underline,
+              ),
+              const SizedBox(height: 20),
               if (errorMessage != null)
-                Padding(
-                  padding: const EdgeInsets.only(top: 20),
-                  child: Text(
-                    errorMessage!,
-                    style: const TextStyle(color: Colors.red),
-                  ),
+                ErrorMessage(
+                  message: errorMessage!,
                 ),
             ],
           ),
