@@ -51,7 +51,7 @@ class AuthenticationWrapper extends StatelessWidget {
         if (snapshot.connectionState == ConnectionState.active) {
           final user = snapshot.data;
           // Navigate to HomeScreen if logged in, otherwise to LoginScreen
-          return user == null ? const LoginScreen() : HomeScreen();
+          return user == null ? const LoginScreen() : const HomeScreen();
         }
         return const Scaffold(
           body: Center(child: CircularProgressIndicator()),

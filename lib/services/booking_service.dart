@@ -75,12 +75,12 @@ class BookingService {
         .where('userId', isEqualTo: userId)
         .snapshots()
         .map((snapshot) => snapshot.docs
-            .map((doc) => Booking.fromMap(doc.data() as Map<String, dynamic>))
+            .map((doc) => Booking.fromMap(doc.data()))
             .toList());
   }
 
-  Future<void> deleteBooking(String roomId, String userId, int startHour) async {
-
+  Future<void> deleteBooking(
+      String roomId, String userId, int startHour) async {
     final querySnapshot = await _firestore
         .collection('bookings')
         .where('roomId', isEqualTo: roomId)

@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import '../models/room_provider.dart';
 
 class BookingForm extends StatelessWidget {
   const BookingForm({super.key});

@@ -135,8 +135,10 @@ class HomeScreen extends StatelessWidget {
                                         icon: const Icon(Icons.delete),
                                         color: Colors.white,
                                         onPressed: () async {
-                                          await bookingService
-                                              .deleteBooking(booking.roomId, user.uid, booking.startHour);
+                                          await bookingService.deleteBooking(
+                                              booking.roomId,
+                                              user.uid,
+                                              booking.startHour);
                                         },
                                       ),
                                       IconButton(

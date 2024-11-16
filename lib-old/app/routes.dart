@@ -4,7 +4,7 @@ import '../features/booking/screens/home_screen.dart';
 
 class AppRoutes {
   static Map<String, WidgetBuilder> routes = {
-    '/': (context) => HomeScreen(),
+    '/': (context) => const HomeScreen(),
     '/login': (context) => const LoginScreen(),
     // Define other routes here
   };

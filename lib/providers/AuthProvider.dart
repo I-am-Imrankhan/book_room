@@ -1,7 +1,6 @@
 import 'package:book_room/models/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:book_room/services/auth_service.dart' as auth_service;
 
