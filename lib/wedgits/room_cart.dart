@@ -3,8 +3,9 @@ import '../models/room.dart';
 
 class RoomCard extends StatelessWidget {
   final Room room;
+  final DateTime selectedDate;
 
-  const RoomCard({super.key, required this.room});
+  const RoomCard({super.key, required this.selectedDate, required this.room});
 
   @override
   Widget build(BuildContext context) {
@@ -13,16 +14,16 @@ class RoomCard extends StatelessWidget {
       child: ListTile(
         title: Text(room.name),
         subtitle: Text(
-          'Capacity: ${room.capacity} people\nPrice: \$${room.pricePerHour}/hour',
+          'Capacity: ${room.capacity} people\nDate: ${selectedDate.toString().split(' ')[0]}',
         ),
-        trailing: Chip(
+        /* trailing: Chip(
           label: Text(
             room.isAvailable ? 'Available' : 'Booked',
             style: const TextStyle(color: Colors.white),
           ),
           backgroundColor:
               room.isAvailable ? Colors.green : Colors.red,
-        ),
+        ), */
       ),
     );
   }

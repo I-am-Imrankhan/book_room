@@ -13,7 +13,7 @@ class RoomsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Rooms for ${selectedDate.toString().split(' ')[0]}'),
+        title: const Text('Choose Date'),
       ),
       body: StreamBuilder<List<Room>>(
         stream: FirebaseService().getRooms(),
@@ -42,7 +42,7 @@ class RoomsScreen extends StatelessWidget {
                     ),
                   );
                 },
-                child: RoomCard(room: room),
+                child: RoomCard(room: room, selectedDate: selectedDate),
               );
             },
           );

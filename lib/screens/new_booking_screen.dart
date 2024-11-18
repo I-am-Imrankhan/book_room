@@ -22,7 +22,7 @@ class NewBookingScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Book Room'),
+        title: const Text('My Bookings'),
         elevation: 2,
         actions: [
           IconButton(
