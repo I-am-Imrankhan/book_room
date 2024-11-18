@@ -19,7 +19,7 @@ void main() async {
           create: (_) => auth_provider.AuthProvider(),
         ),
       ],
-      child: MyApp(),
+      child: const MyApp(),
     ),
   );
 }

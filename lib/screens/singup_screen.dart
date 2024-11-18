@@ -1,5 +1,4 @@
 import 'package:book_room/screens/home_screen.dart';
-import 'package:book_room/services/auth_service.dart' as auth_service;
 import 'package:book_room/widgets/button_link.dart';
 import 'package:book_room/widgets/custom_button.dart';
 import 'package:book_room/widgets/custom_text_field.dart';
