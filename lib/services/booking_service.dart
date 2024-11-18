@@ -5,28 +5,15 @@ import '../models/time_slot.dart';
 class BookingService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  // Get all available time slots for a room on a specific date
   Future<List<TimeSlot>> getAvailableTimeSlots(
       String roomId, DateTime date) async {
-    // Implement the logic to fetch available time slots from Firestore
-    // This is a placeholder implementation
     List<TimeSlot> availableSlots = [];
-
-    // Fetch bookings for the room on the specified date
-    DateTime startOfDay = DateTime(date.year, date.month, date.day, 0, 0, 0);
-    DateTime endOfDay = DateTime(date.year, date.month, date.day, 23, 59, 59);
-    DateTime startOfDayUtc = startOfDay.toUtc();
-    DateTime endOfDayUtc = endOfDay.toUtc();
 
     QuerySnapshot querySnapshot = await _firestore
         .collection('bookings')
         .where('roomId', isEqualTo: roomId)
-        /* .where('date', isGreaterThanOrEqualTo: Timestamp.fromDate(startOfDayUtc))
-      .where('date', isLessThan: Timestamp.fromDate(endOfDayUtc)) */
+        .where('date', isEqualTo: Timestamp.fromDate(date))
         .get();
-
-    // Process the bookings to determine available slots
-    // This is a simplified example
     for (int hour = 9; hour <= 18; hour += 2) {
       bool isAvailable = true;
       for (var doc in querySnapshot.docs) {
@@ -39,7 +26,6 @@ class BookingService {
       }
       availableSlots.add(TimeSlot(hour: hour, isAvailable: isAvailable));
     }
-
     return availableSlots;
   }
 
@@ -75,9 +61,8 @@ class BookingService {
         .collection('bookings')
         .where('userId', isEqualTo: userId)
         .snapshots()
-        .map((snapshot) => snapshot.docs
-            .map((doc) => Booking.fromMap(doc.data()))
-            .toList());
+        .map((snapshot) =>
+            snapshot.docs.map((doc) => Booking.fromMap(doc.data())).toList());
   }
 
   Future<void> deleteBooking(String bookingId) async {
