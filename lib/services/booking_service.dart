@@ -59,6 +59,7 @@ class BookingService {
 
     // Create the booking
     await _firestore.collection('bookings').add({
+      'id': booking.id,
       'roomId': booking.roomId,
       'roomName': booking.roomName,
       'date': Timestamp.fromDate(booking.date),
@@ -79,13 +80,10 @@ class BookingService {
             .toList());
   }
 
-  Future<void> deleteBooking(
-      String roomId, String userId, int startHour) async {
+  Future<void> deleteBooking(String bookingId) async {
     final querySnapshot = await _firestore
         .collection('bookings')
-        .where('roomId', isEqualTo: roomId)
-        .where('userId', isEqualTo: userId)
-        .where("startHour", isEqualTo: startHour)
+        .where('id', isEqualTo: bookingId)
         .get();
     for (var doc in querySnapshot.docs) {
       await _firestore.collection('bookings').doc(doc.id).delete();

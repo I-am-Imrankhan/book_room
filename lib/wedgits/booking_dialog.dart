@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:uuid/uuid.dart';
 import '../models/room.dart';
 import '../models/time_slot.dart';
 import '../services/booking_service.dart';
@@ -25,6 +26,7 @@ class _BookingDialogState extends State<BookingDialog> {
   List<TimeSlot> _timeSlots = [];
   int? _selectedHour;
   bool _isLoading = true;
+  final bookingId = Uuid().v4();
 
   @override
   void initState() {
@@ -98,6 +100,7 @@ class _BookingDialogState extends State<BookingDialog> {
               : () async {
                   try {
                     final booking = Booking(
+                      id: bookingId,
                       roomId: widget.room.id,
                       roomName: widget.room.name,
                       date: widget.selectedDate,
